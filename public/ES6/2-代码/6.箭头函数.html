@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 箭头就是用来简化函数定义语法的
+            // const fn = function () {
+            //     console.log('我是普通方式声明的函数');
+            // };
+
+            // fn();
+
+            // const fn2 = () => {};
+
+            // // 在箭头函数中  如果函数体中只有一句代码 并且 代码的执行结果就是函数的返回值  函数体大括号可以省略
+            // const fnn = (num1, num2) => console.log(num1 + num2); // 函数体
+            // fnn(1, 2);
+
+            // // 箭头函数中 如果形参只有一个 形参外侧的小括号也是可以省略
+            // const fn3 = num => console.log('我省略了包裹形参的小括号');
+            // fn3();
+
+            // 箭头函数的this的指向问题
+            //  箭头函数没有自己的this，如果非要有，第一个是window，第二个是箭头函数定义的位置中的this
+            function fn4(){
+                console.log(this); // window
+                return ()=>{
+                    console.log(this);
+                }
+            }
+            const obj = {name:'lisi'}
+            // 想用call的方法来调用一个对象
+            const fn5 = fn4.call(obj)  // 把fn4的this指向改成call里面的obj对象
+            fn5()
+
+
+
+
+
+
+            // const fn6 = ()=>{console.log(this);}  // 箭头函数的this指向也是window
+            // fn6()
+
+
+            function fn9(){
+                // fn9这个函数的this指向的是window
+                // 定时器前面的this也是指向的window
+                // 如果fn9这个函数的this指向的不是window，那么定时器里面的函数用箭头函数，就不会有问题了
+                this.setTimeout(()=>{
+                    console.log(111)
+                }, 1);
+            }
+            fn9()
+        </script>
+    </body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(255, 255, 255);
+        }
+        
+        .s {
+            /* border: skyblue solid 1px; */
+            width: 94%;
+            height: 25px;
+            /* border-radius: 55px; */
+            /* border: none; */
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 2px;
+        }
+        
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        input {
+            outline: none;
+        }
+        
+        .u {
+            list-style: none;
+            color: black;
+            margin-left: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .u li {
+            margin-top: 10px;
+        }
+        
+        .top-nav .left {
+            display: grid;
+            place-content: center;
+            flex-grow: 1;
+            margin-top: 6px;
+            line-height: 20px;
+        }
+        
+        .top-nav .right {
+            place-content: center;
+            flex-grow: 7;
+        }
+        
+        .shi h2 {
+            margin-left: 10px;
+        }
+        
+        .ji h2 {
+            margin-left: 10px;
+        }
+        
+        .ji {
+            /* margin-top: 10px; */
+            margin-bottom: 10px;
+            background-color: aquamarine;
+            height: 40px;
+            line-height: 40px;
+            display: block;
+        }
+        
+        .shi {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: rgb(252, 195, 192);
+            height: 40px;
+            line-height: 40px;
+        }
+        
+        .wb h2 {
+            margin-left: 10px;
+            line-height: 30px;
+        }
+        
+        .wb {
+            height: 30px;
+            background-color: rgb(255, 255, 255);
+        }
+        
+        .z1 {
+            width: 180px;
+            height: 60px;
+            margin-top: 9px;
+        }
+        
+        .z2 {
+            width: 180px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z3 {
+            width: 180px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z4 {
+            width: 180px;
+            height: 60px;
+            margin-top: 11px;
+        }
+        
+        .z5 {
+            width: 180px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z6 {
+            width: 180px;
+            height: 60px;
+            margin-top: 11px;
+        }
+        
+        .zq {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            align-content: flex-start;
+        }
+        
+        .zh {
+            display: block;
+        }
+        
+        .lb {
+            margin-left: 12px;
+        }
+    </style>
+    <script src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+</head>
+
+<body>
+    <div class="top-nav">
+        <div class="left"><i class="layui-icon" style="font-size: 26px;">&#xe65c;</i></div>
+        <div class="right"><input type="text" oninput="OnInput (event)" class="s" placeholder="天若有情 黄丽玲" style="border-left-width:0px;
+        border-top-width:0px;border-right-width:0px;border-bottom-color:black;border-bottom-width:1px; text-align: center;"></div>
+
+    </div>
+    <div class="zh">
+        <div class="ji">
+            <h2 id="ls">历史</h2>
+        </div>
+        <div class="shi">
+            <h2 id="rs">热搜榜</h2>
+        </div>
+        <ul class="u">
+
+        </ul>
+
+        <div class="wb">
+            <h2>音乐专区</h2>
+            <div class="zq">
+                <div><img src="../img/zq1.jpg" alt="" class="z1"></div>
+                <div><img src="../img/zq2.jpg" alt="" class="z2"></div>
+                <div><img src="../img/zq3.jpg" alt="" class="z3"></div>
+                <div><img src="../img/zq4.jpg" alt="" class="z4"></div>
+                <div><img src="../img/zq5.jpg" alt="" class="z5"></div>
+                <div><img src="../img/zq6.jpg" alt="" class="z6"></div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="lb">
+
+    </ul>
+    <script>
+        var z = document.querySelector('.s');
+
+        $(function() {
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3000/search/hot/detail?_page=1&limit=7',
+                success: function(data) {
+                    console.log(data.data[0].searchWord);
+                    // data 对象数组
+                    var h = '';
+                    var u = data.data
+                    console.log(u);
+
+                    $.each(u, function(x, y) {
+                        // console.log(y.id);
+                        console.log(y.first);
+                        if (x == 10) {
+                            console.log('退出');
+                            return false;
+                        }
+                        h += '<a href="#" class="au" data-id="love">' + '<li>' + ++x + '  ~  ' + y.searchWord + '</li >' + '</a>';
+                        // $('.u').children().eq(x).attr('href', 'jm.html?name=' + u[x].id);
+                        // $('.au').attr('data-id', 'p');
+                        // $('.u').children(i).attr('href', 'jm.html?name=' + u[i].id);
+                    });
+
+                    $('.u').empty().append(h);
+                    $('.u').children().eq(0).children().eq(0).css('color', 'red');
+                    $('.u').children().eq(1).children().eq(0).css('color', 'red');
+                    $('.u').children().eq(2).children().eq(0).css('color', 'red');
+                    // console.log();
+
+                    function fn(e) {
+                        console.log(e++);
+                        console.log(e);
+                        $('ul').children().eq(e).attr('href', 'jm.html?name=' + u[e].id + '&' + 'misuse=' + u[e].name);
+                        if (e === u.length) {
+                            return
+                        }
+                        fn(e)
+                    }
+                    fn(-1)
+
+                },
+                error: function() {
+                    alert('get : error');
+                },
+            });
+
+        });
+        $(document).keydown(function(event) {
+            $('#ls').hide();
+            $('#rs').hide();
+            $(".ji").attr("style", "display:none;")
+            $(".u").attr("style", "display:none;")
+            $(".wb").attr("style", "display:none;")
+            $(".shi").attr("style", "display:none;")
+            if (event.keyCode == 13) {
+                // alert('你按下了Enter')
+                var va = $('.s').val();
+                console.log(va);
+            }
+            $('.s').on('input', function() {
+                console.log($('.s').val());
+                var ty = $('.s').val()
+
+
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:3000/cloudsearch?keywords=' + ty,
+                    success: function(data) {
+                        console.log(data.result.songs[0].name);
+                        console.log(data.result.songs[0].ar[0].name);
+                        console.log(data.result.songs[0].al.picUrl);
+                        // data 对象数组
+                        var h = '';
+                        var u = data.result.songs
+                        console.log(u);
+                        console.log(va);
+                        console.log(ty);
+
+                        $.each(u, function(x, y) {
+                            var sto = window.sessionStorage;
+                            sto['demo' + x] = y.al.picUrl;
+                            console.log(x);
+
+                            // if (x == 30) {
+                            //     console.log('退出');
+                            //     return false;
+                            // }
+                            h += `<a href="jm.html?name=${y.id}&misuse=${y.name}&jp=${x}" class="au" data-id="love"><li><p style="font-size: 20px">${y.name}<p style="font-size: 10px;display: inline; ">${y.ar[0].name}<p style="font-size: 10px;display: inline; ">  -  ${y.al.name}</p></li ></a>`;
+
+                        });
+
+                        $('.lb').empty().append(h);
+                        // $('.u').children().eq(0).children().eq(0).css('color', 'red');
+                        // $('.u').children().eq(1).children().eq(0).css('color', 'red');
+                        // $('.u').children().eq(2).children().eq(0).css('color', 'red');
+                        // console.log();
+
+                        // function fn(e) {
+                        //     console.log(e++);
+                        //     console.log(u[e].id);
+                        //     $('ul').children().eq(e).attr('href', 'jm.html?name=' + u[e].id + '&' + 'misuse=' + u[e].name + '&' + 'jpg=' + u[e].al.picUrl);
+                        //     if (e === u.length) {
+                        //         return
+                        //     }
+                        //     fn(e)
+                        // }
+                        // fn(-1)
+
+                    },
+                    error: function() {
+                        alert('get : error');
+                    },
+                });
+            });
+            // $('.s').click(function() {
+            //     // alert(8);
+
+
+            // });
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

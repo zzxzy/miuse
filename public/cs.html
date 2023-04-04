@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/getUrlParam.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            /* background-color: rgba(232, 239, 239, 0.977); */
+            background-color: rgb(255, 240, 240);
+        }
+        
+        .layui-carousel {
+            margin: 0 auto;
+        }
+        
+        .s {
+            border: skyblue solid 1px;
+            width: 90%;
+            height: 25px;
+            border-radius: 55px;
+            padding: 5px;
+            margin-top: 10px;
+        }
+        
+        .d {
+            text-align: center;
+            flex-grow: 6;
+        }
+        
+        .top {
+            background-color: rgb(210, 221, 230);
+            /* background: #d1c2d3; */
+        }
+        
+        .ss {
+            display: flex;
+            margin-bottom: 15px;
+            /* position: fixed;
+            height: 50px;
+            left: 0;
+            top: 0; */
+        }
+        
+        .ss .left {
+            flex-grow: 1;
+            display: grid;
+            place-content: center;
+        }
+        /* .main {
+            margin-top: 80px;
+        } */
+        
+        .ss .right {
+            flex-grow: 1;
+            display: grid;
+            place-content: center;
+        }
+        
+        a {
+            color: black;
+        }
+        
+        .button {
+            width: 100%;
+            height: 60px;
+            background-color: rgb(255, 255, 255);
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            /* justify-content: space-between; */
+        }
+        
+        .bp {
+            width: 30px;
+            height: 30px;
+            border-radius: 55px;
+            padding: 5px;
+        }
+        
+        .jpg1 {
+            width: 30px;
+            height: 30px;
+            border-radius: 55px;
+            padding: 5px;
+        }
+        
+        .jpg2 {
+            width: 30px;
+            height: 30px;
+            border-radius: 55px;
+            padding: 5px;
+        }
+        
+        .jpg3 {
+            width: 30px;
+            height: 30px;
+            border-radius: 55px;
+            padding: 5px;
+        }
+        
+        .zho {
+            width: 100%;
+            height: 280px;
+            background-color: pink;
+        }
+        
+        .z-nav {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 100px;
+            background-color: rgb(255, 240, 240);
+        }
+        
+        .gd {
+            background-color: rgb(255, 240, 240);
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        /* .cs {
+            background-color: rgb(194, 205, 173);
+            width: 100%;
+            height: 200px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            margin-bottom: 100px;
+        } */
+        
+        .z1 {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z2 {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z3 {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z4 {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .z5 {
+            width: 60px;
+            height: 60px;
+            margin-top: 10px;
+        }
+        
+        .gdnav {
+            width: 100%;
+            height: 40px;
+            background-color: rgb(255, 240, 240);
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+        }
+        
+        .gdnav h2 {
+            margin-left: 20px;
+        }
+        
+        .gdnav a {
+            margin-right: 10px;
+        }
+        
+        .gds {
+            width: 100%;
+            height: 140px;
+            background-color: rgb(255, 240, 240);
+            /* padding-left: 10px;
+            padding-right: 10px; */
+            display: flex;
+            justify-content: space-evenly;
+            padding-top: 16px;
+        }
+        
+        .gds p {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .gd1 {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .miuse {
+            margin-top: 45px;
+            width: 100%;
+            height: 347px;
+            background-color: rgb(255, 240, 240);
+        }
+        
+        .miuse h2 {
+            margin-top: 10px;
+            margin-bottom: 3px;
+        }
+        
+        .miuse {
+            margin-bottom: 10px;
+        }
+        
+        .bt1 {
+            color: red;
+        }
+        
+        .u li {
+            margin-left: 20px;
+            width: 100%;
+            height: 30px;
+            background-color: rgb(252, 236, 242);
+            line-height: 30px;
+            margin-bottom: 2px;
+        }
+        
+        .u {
+            background-color: rgb(255, 240, 240);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cs">
+
+    </div>
+    <!-- 头部 -->
+    <div class="top">
+        <!-- 搜索框 -->
+        <div class="ss">
+            <div class="left"><i class="layui-icon layui-icon-spread-left" style="font-size: 22px;"></i> </div>
+            <div class="d">
+                <a href="sou.html"><input type="text" class="s" placeholder="天若有情 黄丽玲" style="text-align: center;">
+                </a>
+            </div>
+
+            <div class="right"><i class="layui-icon layui-icon-mike" style="font-size: 26px;"></i></div>
+        </div>
+        <div class="main">
+
+        </div>
+        <!-- 轮播图 -->
+        <div id="carouselExampleIndicators" style="text-align: center;" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../img/a.jpg" width="94%" height="150px" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/b.jpg" width="94%" height="150px" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="../img/c.jpg" width="94%" height="150px" alt="...">
+                </div>
+            </div>
+
+        </div>
+        <!-- <div class="layui-carousel" id="test1">
+            <div carousel-item>
+                <div> <img src="../img/a.jpg" width="100%" height="100%"></div>
+                <div> <img src="../img/b.jpg" width="100%" height="100%"></div>
+                <div> <img src="../img/c.jpg" width="100%" height="100%"></div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- 中部 -->
+    <div class="zho">
+        <!-- 中部导航 -->
+        <div class="z-nav">
+            <div><img src="../img/z1.jpg" alt="" width="" class="z1">
+                <p style="color: rgb(202, 191, 193);">每日推荐</p>
+            </div>
+            <div><img src="../img/z2.jpg" alt="" class="z2">
+                <p style="color: rgb(202, 191, 193);text-align: center;">私人FM</p>
+            </div>
+            <div><img src="../img/z3.jpg" alt="" class="z3">
+                <p style="color: rgb(202, 191, 193);text-align: center;">歌单</p>
+            </div>
+            <div><img src="../img/z4.jpg" alt="" class="z4">
+                <p style="color: rgb(202, 191, 193);text-align: center;">排行榜</p>
+            </div>
+            <div><img src="../img/z5.jpg" alt="" class="z5">
+                <p style="color: rgb(202, 191, 193);text-align: center;">数字专辑</p>
+            </div>
+        </div>
+        <!-- 歌单部分 -->
+        <div class="gd">
+            <div class="gdnav">
+                <h3 style="line-height: 40px;margin-left: 20px;">推荐歌单</h3>
+                <a href="#" class="layui-btn layui-btn-radius layui-btn-primary" style="height: 34px;line-height: 34px;">更多></a>
+            </div>
+            <div class="gds">
+                <a href="#"><img src="../img/gd11.jpg" alt="" class="gd1">
+                    <p style="width:100px ;">也许爱就在洱海边./</p>
+                </a>
+                <a href="#"><img src="../img/gd2.jpg" alt="" class="gd1">
+                    <p style="width:100px ;">别依赖任何人没光的时候连影...</p>
+                </a>
+                <a href="#"><img src="../img/gd3.jpg" alt="" class="gd1">
+                    <p style="width:100px ;">夜晚温柔女声唱出谁的不眠心事</p>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 猜你想听 -->
+    <div class="miuse">
+        <h3 style="margin-left:20px;"> 猜你想听</h3>
+        <ul class="u">
+
+        </ul>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <!-- <div class="button">
+        <div style="flex-grow: 1; " class="bt1">
+            <div style="text-align: center;">
+                <img class="jpg1" src="../img/d1.jpg " alt=" ">
+                <p class="pp" style="text-align: center;font-size: 8px;color: rgb(170, 171, 172);">发现</p>
+            </div>
+        </div>
+        <div style="flex-grow: 1; " class="bt2">
+            <div style="text-align: center;">
+                <img src="../img/d2.jpg " alt=" " class="jpg2 ">
+                <p class="pp" style="text-align: center;font-size: 8px;color: rgb(170, 171, 172);">播客</p>
+            </div>
+        </div>
+        <div style="flex-grow: 1; ">
+            <div style="text-align: center;">
+                <img src="../img/d2.jpg " alt=" " class="jpg3 ">
+                <p class="pp" style="text-align: center;font-size: 8px;color: rgb(170, 171, 172);">播客</p>
+            </div>
+        </div>
+        <div style="flex-grow: 1; "><img src="../img/d2.jpg " alt=" " class="bp "></div>
+        <div style="flex-grow: 1; "><img src="../img/d2.jpg " alt=" " class="bp "></div>
+    </div> -->
+    <!-- 条目中可以是任意内容，如：<img src=" "> -->
+
+    <!-- <script src="/static/build/layui.js "></script> -->
+    <script>
+        var btn1 = document.querySelector('.bt1');
+        var btn2 = document.querySelector('.bt2');
+        var jpg1 = document.querySelector('.jpg1');
+        var jpg2 = document.querySelector('.jpg2');
+        var p = document.querySelector('.pp');
+        var znav = document.querySelector('.z-nav');
+        var divs = znav.querySelectorAll('div');
+        for (var i = 0; i < divs.length; i++) {
+            divs[i].addEventListener('click', function() {
+                alert('hi')
+            })
+        }
+        // btn1.addEventListener('click', function() {
+        //     // p.style.color = 'red';
+        //     // jpg1.src = '../img/d11.jpg'
+        // });
+        // btn2.addEventListener('click', function() {
+        //     jpg2.src = '../img/d22.jpg'
+        // })
+        layui.use('carousel', function() {
+            var carousel = layui.carousel;
+
+            //建造实例
+            carousel.render({
+                elem: '#test1',
+                width: '94%' //设置容器宽度
+                    ,
+                height: '150px',
+                indicator: 'inside',
+                // trigger: addEventListener('click', function() {
+                //     alert(1)
+                // }),
+                arrow: 'hover' //始终显示箭头
+                    //,anim: 'updown' //切换动画方式
+            });
+
+        });
+
+        $(function() {
+            $('.button').children().click(function() {
+                for (var i = 0; i < $('.button').children().length; i++) {
+                    $(this).children().children().eq(1).css('color', 'red');
+                    $(this).siblings().children().children().eq(1).css('color', '');
+                }
+                if ($(this).className = 'bt1') {
+                    $('.jpg1').attr('src', '../img/d11.jpg');
+                }
+            });
+
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3000/personalized/newsong',
+                success: function(data) {
+                    console.log(data.result);
+                    // var z = data.result
+                    // console.log(z[0]);
+                    // data 对象数组picUrl
+                    var h = '';
+                    var u = data.result
+                    var t = u[0]
+                    console.log(t);
+                    $.each(u, function(x, y) {
+                        console.log(y.id);
+                        console.log(y.name);
+                        h += `<a href="jm.html?name=${y.id}&misuse=${y.name}" class="au" data-id="love"><li>${++x}  ~  ${y.name}</li ></a>`;
+                        // $('.u').children().eq(x).attr('href', 'jm.html?name=' + u[x].id);
+                        // $('.u').children(i).attr('href', 'jm.html?name=' + u[i].id); 
+                    });
+
+                    $('.u').empty().append(h);
+
+                    console.log(000);
+
+                    function fn(e) {
+                        console.log(e++);
+                        var sto = window.sessionStorage;
+                        console.log(e);
+                        sto['demo' + e] = u[e].picUrl;
+                        console.log(u[e].picUrl);
+                        $('ul').children().eq(e).attr('href', 'jm.html?name=' + u[e].id + '&' + 'misuse=' + u[e].name + '&' + 'jpg=' + e);
+                        if (e === u.length) {
+                            return
+                        }
+                        fn(e)
+                    }
+                    fn(-1)
+                },
+                error: function() {
+                    alert('get : error');
+                },
+            });
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3000/personalized?limit=3',
+                success: function(data) {
+                    console.log(data.result);
+                    // var z = data.result
+                    // console.log(z[0]);
+                    // data 对象数组picUrl
+                    var h = '';
+                    var u = data.result
+                    console.log(u.length);
+                    var t = u[0]
+                    var y = u[1]
+                    console.log(t.picUrl);
+
+                    for (var i = 0; i < u.length; i++) {
+                        $('.gds').children().eq(i).children().eq(0).attr('src', u[i].picUrl);
+                        $('.gds').children().eq(i).children().eq(1).html(u[i].name);
+                        $('.gds').children().eq(i).attr('href', 'gdgq.html?id=' + u[i].id)
+                    }
+
+                },
+                error: function() {
+                    alert('get : error');
+                },
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

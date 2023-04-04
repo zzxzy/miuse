@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // forEach()
+        // var arr = [1, 3, 5, 13, 2];
+        // var res = arr.forEach((item, index, arr) => {
+        //     console.log('数组第' + index + '个元素是' + item);
+        // });
+        // console.log(res); //forEach的返回值为undefined,
+
+        // map()
+        // let arr = [{
+        //     title: 'a',
+        //     read: 100,
+        //     hot: true
+        // }, {
+        //     title: 'b',
+        //     read: 200,
+        //     hot: false
+        // }, {
+        //     title: 'c',
+        //     read: 300,
+        //     hot: true
+        // }, ];
+        // let newArr = arr.map((val, index, arr) => {
+        //     let json = {};
+        //     json.t = val.title;
+        //     json.r = val.read;
+        //     json.hot = val.hot;
+        //     return json;
+        // });
+        // console.log(newArr);
+
+        // 3.arr.filter() ‘过滤’
+        let arr = [{
+            title: 'a',
+            read: 100,
+            hot: true
+        }, {
+            title: 'b',
+            read: 200,
+            hot: false
+        }, {
+            title: 'c',
+            read: 300,
+            hot: true
+        }, ];
+
+        let newArr = arr.filter((val, index, arr) => {
+            return val.hot == true;
+        });
+
+        console.log(newArr);
+
+        // 4.arr.some()
+        // let arr = ['apple', 'banana', 'orange'];
+        // let b = arr.some((val, index, arr) => {
+        //     return (val = 'banana');
+        // });
+
+        // console.log(b); // true
+
+        //5.arr.every()
+        // let arr = [1, 3, 5, 7, 9];
+        // let b = arr.every((val, index, arr) => {
+        //     return val % 2 == 1;
+        // });
+
+        // console.log(b); //true
+
+        // 6.arr.reduce() //循环从左往右
+        // let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // let b = arr.reduce((prev, cur, index, arr) => {
+        //     return prev + cur;
+        // });
+
+        // console.log(b); // 55
+
+        // for…of…循环
+        const arr1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
+        // for (let val of arr1) {
+        //     console.log(val);
+        // }
+
+        // 循环索引
+        // const arr1 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'];
+        // for (let index of arr1.keys()) {
+        //     console.log(index);
+        // }
+
+        // 使用values()遍历。
+        // for (let val of arr1.values()) {
+        //     console.log(val);
+        // }
+
+        // 既循环值又循环索引：
+        for (let [index, val] of arr1.entries()) {
+            console.log(index, val);
+        }
+    </script>
+</body>
+
+</html>

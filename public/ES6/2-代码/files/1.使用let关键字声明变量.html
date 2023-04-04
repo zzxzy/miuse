@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script type="module" src="./1模块化js.js" defer></script>
+    <script type="module" src="./2模块化js.js" async></script>
+    <script type="module" src="./2-promins文件.js"></script> -->
+</head>
+
+<body>
+    <div></div>
+    <script>
+        // let关键字就是用来声明变量的
+        // 使用let关键字声明的变量具有块级作用域 （是指的在{}里面）
+        // 不存在变量提升
+        // 具有暂时性死区的特点
+
+        // if (true) {
+        //     var b = 20;
+        //     let a = 10
+        // }
+        // console.log(a);
+        // // console.log(b);
+
+        // // 在函数内部声明的变量叫做局部变量
+        // // function fn() {
+        // //     var b = 20;
+        // // }
+
+        // // console.log(b);
+
+        // console.log(a);
+        // var a = 10;
+        // let a = 10;
+
+        // var tmp = 123;
+
+        // if (true) {
+        //     tmp = 'abc';
+        //     let tmp;            // 暂时性死区
+        // }
+
+        // console.log(tmp);
+
+        // for (let i = 0; i < 2; i++) {}
+        // console.log(i);
+
+        // var a = 1,
+        //     b = 2;解构赋值
+        // 从数组和对象中提取值，并对新的变量进行赋值
+        // const A = [1, 2, 3, 4];
+        // let [c] = A
+        // const Obj = {
+        //     name: '赵本山',
+        //     age: 49,
+        //     xiaoping: () => {
+        //         console.log('我可以演小品');
+        //     }
+        // }
+        // let {
+        //     name,
+        //     age,
+        //     xiaoping
+        // } = Obj
+        // console.log(name);
+        // xiaoping()
+        //es6新增了简化对象的写法直接在大括号中写入变量和函数，作为对象的属性和方法
+        // let a = 'like';
+        // let b = function() {
+        //     console.log('我喜欢你');
+        // }
+        // let u = {
+        //     a,
+        //     b,
+        //     c() {
+        //         console.log('rr');
+        //     }
+        // }
+        // let {
+        //     a: ma,
+        //     c
+        // } = u
+        // console.log(c);
+        // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+        // // find用于查找数组符合条件的值，找到就返回值，没有找到就返回undefind
+        // let y = arr.findIndex(item => item == 1)
+        // console.log(y);
+        // let o = arr.filter(item => item % 2 === 0)
+        // console.log(o);
+        // function fn({
+        //     host = '127.0.0.7',
+        //     uname,
+        //     password = 123
+        // }) {
+        //     console.log(host);
+        //     console.log(uname);
+        //     console.log(password);
+        // }
+        // fn({
+
+        //     uname: 'nn',
+        //     password: 456
+        // })
+        // let obj = {};
+        // let proxy = new Proxy(obj, {
+        //     get() {
+        //         console.log('获取时触发');
+        //     },
+        //     set(target, key, value) {
+        //         console.log(target, key, value);
+        //         box.innerHTML = value;
+        //         target[key] = value;
+        //     }
+        // })
+        // let pro = new Promise(function(resolve, reject) {
+        //     setInterval(() => {
+        //         resolve('成功');
+        //         reject('失败')
+        //     }, 1000);
+        // })
+        // pro.then(res => {
+        //     console.log('我' + res);
+        // }).then(res => {
+        //     console.log('我' + res);
+        // }).catch(err => {
+        //     console.log(err);
+        // })
+        // let p = new Promise((resolve, reject) => {
+        //     setInterval(() => {
+        //         let data = '数据库的值'
+        //             // resolve(data)
+        //         let err = '数据读取失败'
+        //         reject(err)
+        //     }, 1000);
+        // })
+        // p.then(function(value) {
+        //     console.log(value);
+        // }, function(reason) {
+        //     console.log(reason);
+        // })
+        // const p = new Promise((resolve, reject) => {
+        //         const xhr = new XMLHttpRequest();
+        //         xhr.open("GET", "https://api.apiopen.top/getJoke");
+        //         xhr.send();
+        //         xhr.onreadystatechange = function() {
+        //             if (xhr.readyState === 4) {
+        //                 if (xhr, status >= 200 && xhr.status < 300) {
+        //                     console.log(xhr.response);
+        //                 } else {
+        //                     console.log(xhr.status);
+        //                 }
+        //             }
+        //         }
+
+        //     })
+        // const pro1 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(400);
+        //     }, 1000);
+
+        // })
+        // const pro2 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(1000);
+        //     }, 1000);
+
+        // })
+        // const pro3 = new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         console.log(2000);
+        //     }, 1000);
+
+        // })
+        // Promise.all([pro1, pro2, pro3]).then(res => {
+        //     console.log(res);
+        // }).catch(err => {
+        //     console.log('失败');
+        // })
+        function fn() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('hhhhhhh');
+                    // reject('失败')
+                }, 1000);
+            })
+        }
+
+        async function u() {
+            try {
+                let a = await fn()
+                console.log(a);
+            } catch (error) {
+                console.log(error + 'errrrrrr');
+            }
+
+        }
+        u()
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/getUrlParam.js"></script>
+    <!-- <script src="../js/index.js"></script> -->
+    <script src="../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <style>
+        body {}
+        
+        .bj {
+            width: 100%;
+            height: 500px;
+            filter: blur(px);
+        }
+        
+        #web_bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-width: 1000px;
+            z-index: -10;
+            zoom: 1;
+            background-color: #cccc;
+            /* background-repeat: no-repeat;
+            background-size: cover; */
+            /* -webkit-background-size: cover;
+            -o-background-size: cover; */
+            /* background-position: center 0; */
+            background: url(../img/h.jpg)no-repeat center top;
+            background-attachment: fixed;
+            background-size: cover;
+            filter: blur(0px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="web_bg"></div>
+    <div class="bj"><audio id="iv" controls autoplay="autoplay" src="http://m701.music.126.net/20230113122649/5dec2163566adf174aa6fd00289e0bd1/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/9444694535/c8bb/65da/db54/9e257ff0610f84e4242cf0127dac6005.mp3" loop></audio></div>
+    <li style="display: block; ">
+        <p>你好</p>
+        <p style="display: inline; ">你好</p>
+        <p style="display: inline; ">你好</p>
+    </li>
+    <input type="text" class="a">
+    <button>hq</button>
+    <div></div>
+    <p class="p"> </p>
+    <h1 id="'h_val"></h1> -->
+    <ul class="flow-default yuyue_list" id="LAY_demo1">
+        <li>请确</li>
+        <li>请确</li>
+        <li>请确</li>
+        <li>请确</li>
+        <li>请确</li>
+
+        <li>请确</li>
+        <li>请确</li>
+
+        <li>请确</li>
+        <li>请确</li>
+        <li>请确</li>
+
+        <li>请确</li>
+        <li>请确</li>
+        <li>请确</li>
+
+    </ul>
+    <script>
+        $(document).ready(function() {
+                var limit = 10;
+                layui.use('flow', function() {
+                    var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+                    var flow = layui.flow;
+                    var a = 1;
+                    flow.load({
+                        elem: '#LAY_demo1' //指定列表容器
+                            ,
+                        mb: 50,
+                        done: function(page, next) { //到达临界点（默认滚动触发），触发下一页
+                            //页数
+                            //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                            $.get('http://localhost:3000/cloudsearch?keywords=命运?_page=' + page + '&limit=' + 30, function(res) {
+                                console.log(res.result.songs);
+                                var t = res.result.songs;
+                                if (res.status != 0) {
+                                    var lis = [];
+                                    //假设你的列表返回在data集合中
+                                    layui.each(t, function(index, value) {
+                                        lis.push('<li style="font-size: 40px">' + value.name + '</li>');
+                                    });
+                                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                                    next(lis.join(''), page < t.length);
+                                }
+                            });
+                        }
+                    });
+                });
+
+            })
+            // var st = window.sessionStorage;
+            // var cur = st.demo;
+            // console.log(cur);
+            // document.getElementById('h_val').innerText = cur;
+            // var z = document.querySelector('.s');
+            // var bt = document.queryCommandIndeterm('button');
+            // var p = document.queryCommandIndeterm('.p');
+            // var g = z.value();
+            // if (g) {
+            //     p.innerHTML = g;
+            // }
+
+        // function test() {
+        //     alert($('.s').val)
+        // }
+        // var au = document.querySelector('audio');
+        // $('audio').attr('src', urlSongClick)
+        // console.log(urlSongClick);
+
+        // function fn(e) {
+        //     console.log(++e);
+        //     console.log(e);
+        //     if (e === 10) {
+        //         return
+        //     }
+        //     fn(e)
+        // }
+        // fn(0)
+        // let path = UrlParm.parm('misuse');
+        // let ui = UrlParm.parm('name');
+
+        // console.log(path);
+        // console.log(ui);
+    </script>
+</body>
+
+</html>

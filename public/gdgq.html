@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/getUrlParam.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <ul class="u"></ul>
+    <script>
+        var id = UrlParm.parm('id');
+        $.ajax({
+            type: 'get',
+            url: 'http://localhost:3000/playlist/detail?id=' + id,
+            success: function(playlist) {
+                console.log(playlist.playlist.tracks[1].al.picUrl);
+                // var z = data.result
+                // console.log(z[0]);
+                // data 对象数组picUrl
+                var h = '';
+                var u = playlist.playlist.tracks
+                var t = u[0]
+                console.log(t);
+                $.each(u, function(x, y) {
+                    console.log(y.id);
+                    console.log(y.name);
+                    h += `<a href="jm.html?msid=${y.id}&misuse=${y.name}" class="au" data-id="love"><li>${++x}  ~  ${y.name}</li ></a>`;
+                    // $('.u').children().eq(x).attr('href', 'jm.html?name=' + u[x].id);
+                    // $('.u').children(i).attr('href', 'jm.html?name=' + u[i].id); 
+                });
+
+                $('.u').empty().append(h);
+
+                console.log(000);
+
+                function fn(e) {
+                    console.log(e++);
+                    var sto = window.sessionStorage;
+                    console.log(e);
+                    sto['demo' + e] = u[e].picUrl;
+                    console.log(u[e].picUrl);
+                    $('ul').children().eq(e).attr('href', 'jm.html?name=' + u[e].id + '&' + 'misuse=' + u[e].name + '&' + 'jpg=' + e);
+                    if (e === u.length) {
+                        return
+                    }
+                    fn(e)
+                }
+                fn(-1)
+            },
+            error: function() {
+                alert('get : error');
+            },
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../js/jquery.min.js">
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid #201c1c;
+            width: 900px;
+            text-align: center;
+        }
+        
+        td,
+        th {
+            border: 1px solid #201c1c;
+        }
+    </style>
+</head>
+
+<body>
+    商品名称：<input type="text" class="spmc" /> 商品数量：
+    <input type="text" class="spsl" /> 商品单价：
+    <input type="text" class="spdj" />
+    <button id="qrtj">确认添加</button>
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="quanxuan" /></th>
+                <th>商品名称</th>
+                <th>数量</th>
+                <th>单价</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+        <tbody id="tby">
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td>可乐</td>
+                <td>1</td>
+                <td>2.5</td>
+                <td><button>删除</button></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td>红牛</td>
+                <td>2</td>
+                <td>5</td>
+                <td><button id="sc">删除</button></td>
+            </tr>
+            <tr>
+                <td colspan="2">总价</td>
+                <td colspan="3" class="zj"></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        //获取元素
+        let tby = document.querySelector('#tby')
+        let qx = document.querySelector("#quanxuan");
+        let fx = document.querySelectorAll("#tby input");
+        let zj = document.querySelector('.zj')
+
+        let btn = tby.querySelectorAll('button')
+        let spmc = document.querySelector('.spmc')
+        let spsl = document.querySelector('.spsl')
+        let spdj = document.querySelector('.spdj')
+        let qrtj = document.querySelector('#qrtj')
+
+        //增加行
+        qrtj.addEventListener('click', function() {
+            let tr = document.createElement('tr')
+            tby.insertBefore(tr, tby.children[tby.children.length - 1]);
+
+            let ll = tby.children[0].children[0].cloneNode(true);
+            tr.insertBefore(ll, tr.children[0])
+
+            let td = document.createElement('td');
+            tr.insertBefore(td, tr.children[1])
+            td.innerHTML = spmc.value
+
+            let td1 = document.createElement('td');
+            tr.insertBefore(td1, tr.children[2])
+            td1.innerHTML = spsl.value
+
+            let td2 = document.createElement('td');
+            tr.insertBefore(td2, tr.children[3])
+            td2.innerHTML = spdj.value
+
+            let scc = tby.children[0].children[4].cloneNode(true);
+            tr.insertBefore(scc, tr.children[4])
+
+            Del();
+        })
+
+
+        qx.addEventListener("click", function() {
+            for (let i = 0; i < fx.length; i++) {
+                fx[i].checked = qx.checked;
+            }
+            let Sum = GetSum();
+            zj.innerHTML = Sum
+            console.log(zj.innerHTML);
+        });
+
+        for (i = 0; i < fx.length; i++) {
+
+            fx[i].onclick = function() {
+                let check = document.querySelectorAll("#tby  input:checked");
+                if (check.length == fx.length) {
+                    qx.checked = true;
+                } else {
+                    qx.checked = false;
+                }
+                let Sum = GetSum();
+                zj.innerHTML = Sum
+                console.log(zj.innerHTML);
+            };
+        }
+        //函数求和
+        function GetSum() {
+            let check = document.querySelectorAll("#tby  input:checked");
+            let sum = 0;
+            for (i = 0; i < check.length; i++) {
+                let tr = check[i].parentNode.parentNode;
+                sum += +tr.children[3].innerHTML * tr.children[2].innerHTML
+            }
+            return sum;
+        }
+        //删除行
+        // sc.addEventListener('click',function(){ 
+
+        //   this.parentNode.parentNode.remove() 
+
+        // }) 
+        function Del() {
+            let btn = tby.querySelectorAll('button');
+            for (var i = 0; i < btn.length; i++) {
+                btn[i].addEventListener('click', function() {
+                    this.parentNode.parentNode.remove()
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

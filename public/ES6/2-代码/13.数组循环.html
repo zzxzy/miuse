@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.arr.forEach()循环
+        // let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        // let arrNew = arr.forEach((item, index, arr) =>
+        //     console.log(`数组的第${index}个元素是${item}`)
+        // );
+        // let arr = [1, 2, 3, 4, 5, 6, 7];
+        // let av = arr.forEach((item, index, arr) => {
+        //     console.log(`我是第${index} 个${item}`);
+
+        // });
+        // 2.arr.map() ‘映射’
+        // let arr = [
+        //     { title: 'a', read: 100, hot: true },
+        //     { title: 'b', read: 200, hot: false },
+        //     { title: 'c', read: 300, hot: true },
+        // ];
+        //map对一个数组进行更改和整理，并映射给一个新的数组，原素组不变，需要配合retune
+        // let arr2 = [{
+        //     title: 'a',
+        //     read: 100,
+        //     hot: true
+        // }, {
+        //     title: 'b',
+        //     read: 200,
+        //     hot: false
+        // }, {
+        //     title: 'c',
+        //     read: 300,
+        //     hot: true
+        // }];
+        // let y = arr2.map((item, index, arr2) => {
+        //     let join = {};
+        //     join.t = item.title;
+        //     join.r = item.read;
+        //     join.h = item.hot;
+        //     return join
+        // })
+        // console.log(y);
+        // let newArr = arr.map((item, index, arr) => {
+        //     let json = {};
+        //     json.t = item.title;
+        //     json.r = item.read;
+        //     json.h = item.hot;
+        //     return json;
+        // });
+        // console.log(newArr);
+        // console.log(arr);
+
+        // 3. arr.filter()‘ 过滤’
+        let arr = [{
+            title: 'a',
+            read: 100,
+            hot: true
+        }, {
+            title: 'b',
+            read: 200,
+            hot: false
+        }, {
+            title: 'c',
+            read: 300,
+            hot: true
+        }, ];
+        let newArr = arr.filter((item, index, arr) => item.hot == true);
+        console.log(newArr);
+
+        // 4.arr.some()
+        // let arr = ['apple', 'banana', 'orange'];
+        // let newArr = arr.some((item, index, arr)=>item == 'orange');
+        // console.log(newArr);
+
+        // 5.arr.every()
+        // let arr = [1, 3, 5, 7, 9];
+        // let newArr = arr.every((item, index, arr) => item % 2 == 1);
+        // console.log(newArr);
+
+        // 6.arr.reduce() //循环从左往右
+        // let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // let newArr = arr.reduce((prev, item, index, arr) => {
+        //     // prev 类似于 一个变量，必须要有值，而且这个值必须要做处理，不做处理的话，就会是undefined
+        //     // 要做累加和
+        //     return prev + item;
+        // });
+        // console.log(newArr);
+    </script>
+</body>
+
+</html>

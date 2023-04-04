@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/getUrlParam.js"></script>
+    <style>
+        table,
+        td,
+        th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        table {
+            width: 500px;
+            text-align: center;
+        }
+        
+        tr {
+            height: 35px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="u">
+
+    </ul>
+    <script>
+        $(function() {
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3000/personalized/newsong/song',
+                success: function(data) {
+                    console.log(data.result);
+                    // data 对象数组
+                    var h = '';
+                    // h += "<table border='1'>";
+                    // h += "<ul>";
+                    // h += "<li>name</li>"
+                    // h += '<thead><th>ID</th><th>name</th><th>price</th></thead>';
+                    // h += '<tbody>';
+                    var u = data.result
+                        // console.log(u);
+                        // var s = u[0].id;
+                        // console.log(s);
+                    console.log(u[0].name);
+
+
+
+                    $.each(u, function(x, y) {
+                        console.log(y.id);
+                        console.log(y.name);
+                        h += '<a href="#" class="au" data-id="love">' + '<li>' + y.name + '</li >' + '</a>';
+                        $('.u').children().eq(x).attr('href', 'jm.html?name=' + u[x].id);
+                        $('.au').attr('data-id', 'p');
+                        // $('.u').children(i).attr('href', 'jm.html?name=' + u[i].id);
+                    });
+
+                    for (var i = 0; i < u.length; i++) {
+                        // $('ul').click(function() {
+                        //     alert(77)
+                        // })
+                        $('ul').children().eq(i).attr('href', 'jm.html?name=' + u[i].id + '&' + 'misuse=' + u[i].name);
+
+                        // function hs() {
+                        //     a = 0;
+                        //     a++
+                        //     console.log(a);
+                        //     $('.u').children().eq(0).attr('href', 'jm.html?name=' + u[0].id);
+                        // }
+
+                    }
+                    // $.each($('ul'), function(x, y) {
+                    //     console.log(y);
+                    //     $('this').attr('data-id', 'p')
+                    // });
+                    // $('.au').data('love')
+                    // $('.au').data('love', 'ov')
+                    console.log(u);
+                    // for (var i = 0; i < u.length; i++) {
+                    //     // console.log(u[i].id);
+                    //     // $('.au').attr('index', u[0].id)
+                    //     $('.u').children().eq(i).attr('href', 'jm.html?name=' + u[i].id);
+                    // }
+                    // for (var i = 0; i < u.length; i++) {
+                    //     var o = u[i];
+                    //     var t = o.id
+
+                    //     console.log(t);
+                    //     h += '<a href="#" class="au">' + '<li>' + o.name + '</li >' + '</a>'
+
+                    // }
+                    // h += '<tbody>';
+                    // h += '</table>';
+                    // h += "</ul>"
+                    $('.u').empty().append(h);
+                    // $('.au').attr('index', u[0].id);
+                    console.log();
+
+                    function fn(e) {
+                        console.log(e++);
+                        console.log(e);
+                        $('ul').children().eq(e).attr('href', 'jm.html?name=' + u[e].id + '&' + 'misuse=' + u[e].name);
+                        if (e === u.length) {
+                            return
+                        }
+                        fn(e)
+                    }
+                    fn(-1)
+
+                },
+                error: function() {
+                    alert('get : error');
+                },
+            });
+
+
+            // setTimeout(function() {
+            //     document.querySelector('.u li').click()
+            // }, 1);
+
+
+        });
+    </script>
+</body>
+
+</html>

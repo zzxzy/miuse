@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            // 剩余参数语法允许我们将一个不定数量的参数表示为一个数组，不定参数定义方式，这种方式很方便的去声明不知道参数情况下的一个函数
+            // let arr = [1, 2, 3];
+
+            // const sum = function (...args) {
+            //     console.log(args);
+            // };
+
+            // sum(1, 2, 3);
+
+            let arr = ['张三', '李四', '王五'];
+            let [s1, ...s2] = arr;
+            console.log(s1);
+            console.log(s2);
+        </script>
+
+    </body>
+</html>

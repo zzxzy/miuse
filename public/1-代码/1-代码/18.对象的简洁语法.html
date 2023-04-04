@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let name = 'Strive';
+        let age = 18;
+        let json = {
+            // 当两个名称一样时可以省略，只写一个
+            name,   // name:name 
+            age,     // age:age
+            // showA:function(){
+            //     return this.name
+            // }
+            //  函数可以省略function
+            showA(){
+                return this.name;
+            },
+            showB(){
+                return this.age;
+            }
+        }
+
+        console.log(json.showA(),json.showB());
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var age = 100;
+
+        var obj = {
+            age: 20,
+            say: function() {
+                alert(this.age);
+            },
+        };
+
+        obj.say();
+
+        // 箭头函数的this  是根据箭头函数本身所处的位置来决定箭头函数本身的this指向的
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../../js/jquery.min.js"></script>
+    <style>
+        #lk {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div style="text-align:center;">
+        <span> 商品名称:<input type="text" class="name"></span>
+        <span> 商品数量:<input type="text" class="sl"></span>
+        <span> 商品单价：<input type="text" class="dj"></span>
+        <button class="btn">确认添加</button><br>
+
+        <div style="height: 20px;"></div>
+
+        <span> 商品查询:<input type="text"  id="cxz"></span>
+        <button onclick="sb()">查询</button>
+
+
+        <span> 商品单价查询:<input type="text"  id="cxzz"></span>
+        <button onclick="st()">查询</button>
+
+
+        <div style="height: 20px;"></div>
+        <table border="1" cellspacing="0" cellpadding="5" align="center">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" name='items' id="j_cbAll"></th>
+                    <th>商品名称</th>
+                    <th>商品数量</th>
+                    <th>商品单价</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="bd">
+                <tr>
+                    <td><input type="checkbox" name='items' id="ck"></td>
+                    <td>iphone8</td>
+                    <td>8</td>
+                    <td>8</td>
+                    <td><button type="button" id="ck">删除</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name='items' id="ck"></td>
+                    <td>香蕉</td>
+                    <td id="clk">8</td>
+                    <td id='x' style="display: none;"> <input oninput="OnInput (event)" type="text" style="width: 60px;height: 20px;" id='z'></td>
+                    <td id="lk"><input type="submit" value="-" id="c"><span id="p">9</span><input type="submit" value="+" id="j"></td>
+                    <td><button type="button">删除</button></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name='items' id="ck"></td>
+                    <td>西瓜</td>
+                    <td id="clk">8</td>
+                    <td id='x' style="display: none;"> <input oninput="OnInput (event)" type="text" style="width: 60px;height: 20px;" id='z'></td>
+                    <td id="lk"><input type="submit" value="-" id="c"><span id="p">9</span><input type="submit" value="+" id="j"></td>
+                    <td><button type="button" id="dy">删除</button></td>
+
+                </tr>
+                <tr>
+                    <td>总价：</td>
+                    <td id="je"></td>
+
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+    <script>
+        a();
+
+
+
+        function st() {
+            var input, filter, table, tr, td, span, i;
+            input = document.getElementById("cxzz");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("bd");
+            tr = table.getElementsByTagName("tr");
+
+            // 循环表格每一行， 查找匹配项
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                // te = tr[i].getElementsByTagName("span")[0];
+                console.log(td);
+
+                if (td.length = 2) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                        tr[3].style.display = "block";
+                    }
+
+                }
+
+            }
+
+            for (i = 0; i < tr.length; i++) {
+                t = tr[i].getElementsByTagName("span")[0];
+                console.log(td);
+                if (t) {
+                    if (t.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                        tr[3].style.display = "block";
+                    }
+                }
+            }
+        }
+
+        function sb() {
+            var input, filter, table, tr, td, span, i;
+            input = document.getElementById("cxz");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("bd");
+            tr = table.getElementsByTagName("tr");
+
+            // 循环表格每一行， 查找匹配项
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                // te = tr[i].getElementsByTagName("span")[0];
+                console.log(td);
+
+                if (td.length = 2) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                        tr[3].style.display = "block";
+                    }
+
+                }
+
+            }
+
+
+        }
+
+        function a() {
+            var h = document.querySelector('#clk')
+            var x = document.querySelector('#x')
+            var j_cbAll = document.querySelector('#j_cbAll')
+            var bd = document.querySelectorAll('#bd input')
+
+            var bt = document.querySelectorAll('#bd button')
+            var je = document.querySelector('#je')
+            var z = document.querySelector('#z');
+
+            j_cbAll.addEventListener('click', function() {
+                for (i = 0; i < bd.length; i++) {
+                    console.log(bd);
+                    bd[i].checked = j_cbAll.checked;
+                } //求和函数 
+
+                let sum = getSum();
+                je.innerHTML = sum
+
+            })
+
+            for (i = 0; i < bd.length; i++) {
+
+                bd[i].onclick = function() {
+                    let check = document.querySelectorAll("#bd input:checked");
+                    if (check.length == bd.length) {
+                        j_cbAll.checked = true;
+                    } else {
+                        j_cbAll.checked = false;
+                    }
+                    let Sum = getSum();
+                    je.innerHTML = Sum
+                    console.log(je.innerHTML);
+                };
+
+            }
+
+            function getSum() {
+                let checks = document.querySelectorAll("#bd input:checked")
+                let sum = 0;
+                for (i = 0; i < checks.length; i++) {
+                    let tr = checks[i].parentNode.parentNode;
+                    sum += +tr.children[4].children[1].innerHTML * tr.children[2].innerHTML
+                }
+                console.log(sum);
+                return sum
+            }
+
+        }
+        const u = () => {
+            var j_cbAll = document.querySelector('#j_cbAll')
+            var bd = document.querySelectorAll('#bd input')
+            var bt = document.querySelectorAll('#bd button')
+            var je = document.querySelector('#je')
+            let check = document.querySelectorAll("#bd input:checked");
+            if (check.length == bd.length) {
+                j_cbAll.checked = true;
+            } else {
+                j_cbAll.checked = false;
+            }
+            let Sum = getSum();
+            je.innerHTML = Sum
+            console.log(je.innerHTML);
+
+            function getSum() {
+                let checks = document.querySelectorAll("#bd input:checked")
+                let sum = 0;
+                for (i = 0; i < checks.length; i++) {
+                    let tr = checks[i].parentNode.parentNode;
+                    console.log(tr.children[4]);
+                    sum += +tr.children[4].innerHTML * tr.children[2].innerHTML
+                }
+                console.log(sum);
+                return sum
+            }
+        }
+
+
+
+        $(function() {
+            $('tr button').click(function() {
+                    // alert(1)
+                    $(this).parents('tr').remove()
+                    u()
+
+                })
+                // $('#j').click(function() {
+                //     let u = $('#p').text()
+                //     console.log();
+                //     $('#p').html(parseInt(u) + 1)
+                // })
+            $('td').delegate('input', 'click', function() {
+
+                    let z = $(this).attr('id');
+                    console.log(z == 'j');
+                    if (z == 'j') {
+                        let u = $(this).prev().text()
+                        console.log(u);
+                        $(this).prev().html(parseInt(u) + 1)
+                    } else {
+                        let u = $(this).next().text()
+                        console.log(u);
+                        $(this).next().html(parseInt(u) - 1)
+                    }
+
+                })
+                // $('td').delegate('input', 'click', function() {
+                //     let u = $(this).text()
+                //     console.log();
+                //     $('#p').html(parseInt(u) - 1)
+                // })
+            $('tr').delegate('#clk', 'click', function() {
+                console.log(this);
+                $(this).hide()
+                $(this).next().show()
+            });
+            $(document).keydown(function(event) {
+
+                $('#z').on('input', function() {
+                    console.log($('#z').val());
+                    var ty = $('#z').val()
+
+                    $('#z').change(function() {
+
+                        $('#x').hide();
+                        $('#clk').show()
+                        $("#clk").html(ty)
+                        a()
+                        console.log(ty);
+                    })
+                });
+
+
+
+
+
+                $('.btn').click(function() {
+                        // alert('n')
+                        if ($('.name').val().length > 1 || $('.sl').val().length > 1 || $('.dj').val().length > 1) {
+                            console.log($('.name').val());
+                            let h = ''
+                            h += `<tr> <td><input type="checkbox" name='items'></td><td>${$('.name').val()}</td><td>${$('.sl').val()}</td><td>${$('.dj').val()}<td><button type="button">删除</button></td>`
+                            $('#bd').children().eq(0).before(h);
+                            a();
+                            $('button').click(function() {
+                                $(this).parents('tr').remove()
+                                u()
+                            })
+
+                        } else {
+                            alert('请正确输入')
+                        }
+
+                    })
+                    // $('button').click(function() {
+                    //     alert(1)
+                    //     $(this).parents('tr').remove()
+                    //     u()
+
+                // })
+            });
+
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+</head>
+
+<body>
+
+
+    <script>
+        $(function() {
+
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:3000/lyric?id=33894312',
+                success: function(data) {
+                    console.log(data.lrc.lyric);
+                    // data 对象数组
+                    var h = '';
+                    var u = data.result.hots
+                    console.log(u);
+
+                    $.each(u, function(x, y) {
+                        // console.log(y.id);
+                        console.log(y.first);
+                        h += '<a href="#" class="au" data-id="love">' + '<li>' + ++x + '  ~  ' + y.first + '</li >' + '</a>';
+                        // $('.u').children().eq(x).attr('href', 'jm.html?name=' + u[x].id);
+                        // $('.au').attr('data-id', 'p');
+                        // $('.u').children(i).attr('href', 'jm.html?name=' + u[i].id);
+                    });
+
+                    $('.u').empty().append(h);
+                    $('.u').children().eq(0).children().eq(0).css('color', 'red')
+                    $('.u').children().eq(1).children().eq(0).css('color', 'red')
+                    $('.u').children().eq(2).children().eq(0).css('color', 'red')
+
+
+                },
+                error: function() {
+                    alert('get : error');
+                },
+            });
+        })
+    </script>
+</body>
+
+</html>

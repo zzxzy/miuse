@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/getUrlParam.js"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css">
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script>
+        var st = window.sessionStorage;
+        var cur = st.demo3;
+        //旋转JS代码
+        $(document).ready(function() {
+            var mark = true;
+            var deg = 0;
+            var flag = false;
+            var myMusic = document.getElementById("myMusic");
+            $(".play-b").eq(0).click(function() {
+                $(".play").addClass("rotate");
+                if (mark) {
+                    if (flag) {
+                        $(".play-b").eq(0).removeClass("buttonRot_back");
+                        flag = false;
+                    }
+
+                    $(".play-b").eq(0).addClass("buttonRot");
+                    $(".play").css({
+                        "animation-play-state": "running",
+                        " -webkit-animation-play-state": "running"
+                    });
+                    myMusic.play();
+                    mark = false;
+                } else {
+                    $(".play-b").eq(0).removeClass("buttonRot");
+                    $(".play-b").eq(0).addClass("buttonRot_back");
+                    flag = true;
+                    deg = cAngle() + 'deg';
+                    console.log(deg);
+                    myMusic.pause();
+                    $(".play").css({
+                        "animation-play-state": "paused",
+                        " -webkit-animation-play-state": "paused"
+                    });
+
+
+                    mark = true;
+                }
+            });
+
+            $(".play").eq(0).click(function() {
+                $(this).addClass("rotate");
+                if (mark) {
+                    if (flag) {
+                        $(".play-b").eq(0).removeClass("buttonRot_back");
+                        flag = false;
+                    }
+
+                    $(".play-b").eq(0).addClass("buttonRot");
+                    $(this).css({
+                        "animation-play-state": "running",
+                        " -webkit-animation-play-state": "running"
+                    });
+                    myMusic.play();
+
+                    mark = false;
+                } else {
+                    $(".play-b").eq(0).removeClass("buttonRot");
+                    $(".play-b").eq(0).addClass("buttonRot_back");
+                    flag = true;
+                    deg = cAngle() + 'deg';
+                    console.log(deg);
+                    myMusic.pause();
+                    $(this).css({
+                        "animation-play-state": "paused",
+                        " -webkit-animation-play-state": "paused"
+                    });
+
+
+                    mark = true;
+                }
+            });
+
+            function cAngle() {
+                // var el = document.getElementById("id1");
+                var btn = document.getElementsByClassName("play")[0];
+                var st = window.getComputedStyle(btn, null);
+                var tr = st.getPropertyValue("-webkit-transform") ||
+                    st.getPropertyValue("transform") || "FAIL";
+                var values = tr.split('(')[1].split(')')[0].split(',');
+                var a = values[0];
+                var b = values[1];
+                var c = values[2];
+                var d = values[3];
+                var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
+                return angle
+            }
+        });
+    </script>
+    <script>
+        //心形鼠标
+        window.onload = (function(window, document, undefined) {
+
+            var hearts = [];
+
+            window.requestAnimationFrame = (function() {
+                return window.requestAnimationFrame ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame ||
+                    window.oRequestAnimationFrame ||
+                    window.msRequestAnimationFrame ||
+                    function(callback) {
+                        setTimeout(callback, 1000 / 60);
+                    }
+            })();
+
+            init();
+
+            function init() {
+                css(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+                attachEvent();
+                gameloop();
+            }
+
+            function gameloop() {
+                for (var i = 0; i < hearts.length; i++) {
+                    if (hearts[i].alpha <= 0) {
+                        document.body.removeChild(hearts[i].el);
+                        hearts.splice(i, 1);
+                        continue;
+                    }
+
+                    hearts[i].y--;
+                    hearts[i].scale += 0.004;
+                    hearts[i].alpha -= 0.013;
+                    hearts[i].el.style.cssText = "left:" + hearts[i].x + "px;top:" + hearts[i].y + "px;opacity:" + hearts[i].alpha + ";transform:scale(" + hearts[i].scale + "," + hearts[i].scale + ") rotate(45deg);background:" + hearts[i].color;
+                }
+
+                requestAnimationFrame(gameloop);
+            }
+
+            // function attachEvent() {
+            //     var old = typeof window.onclick === "function" && window.onclick;
+            //     window.onclick = function(event) {
+            //         old && old();
+            //         createHeart(event);
+            //     }
+            // }
+
+            function createHeart(event) {
+                var d = document.createElement("div");
+                d.className = "heart";
+                hearts.push({
+                    el: d,
+                    x: event.clientX - 5,
+                    y: event.clientY - 5,
+                    scale: 1,
+                    alpha: 1,
+                    color: randomColor()
+                });
+
+                document.body.appendChild(d);
+            }
+
+            function css(css) {
+                var style = document.createElement("style");
+                style.type = "text/css";
+                try {
+                    style.appendChild(document.createTextNode(css));
+                } catch (ex) {
+                    style.styleSheet.cssText = css;
+                }
+
+                document.getElementsByTagName('head')[0].appendChild(style);
+            }
+
+            function randomColor() {
+                return "rgb(" + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + "," + (~~(Math.random() * 255)) + ")";
+            }
+
+        })(window, document);
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        /* body { */
+        /* background-color: rgb(251, 210, 230); */
+        /* background-image: url(http://p1.music.126.net/I8h4er77FZLgfAeHUUF5sA==/109951168213844530.jpg);
+        } */
+        
+        body {
+            background: rgb(215, 226, 216);
+        }
+        
+        .da {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #web_bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-width: 1000px;
+            z-index: -10;
+            zoom: 1;
+            /* background-color: #cccc; */
+            /* background-repeat: no-repeat;
+            background-size: cover; */
+            /* -webkit-background-size: cover;
+            -o-background-size: cover; */
+            /* background-position: center 0; */
+            background: url(http://p1.music.126.net/ZzLVYOzgmR8n0_5z-D2qAg==/109951168252658615.jpg)no-repeat center top;
+            background-attachment: fixed;
+            background-size: cover;
+            filter: blur(70px);
+        }
+        
+        video {
+            position: fixed;
+            left: 35px;
+            bottom: 0;
+            /* background-color: pink; */
+        }
+        
+        .top-nav {
+            display: flex;
+            justify-content: space-around;
+            /* background-color: rgb(110, 205, 172); */
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+        
+        .misuse {
+            color: rgb(8, 8, 8);
+        }
+        
+        #Music {
+            /* position: fixed;
+            bottom: 50px; */
+            height: 60px;
+            line-height: 60px;
+            /* display: grid;
+            place-content: center; */
+        }
+        
+        .yy audio {
+            width: 100%;
+            outline: none;
+            background-color: rgb(215, 226, 216);
+        }
+        
+        .yy {
+            position: fixed;
+            /* left: 35px; */
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        audio::-webkit-media-controls-play-button {
+            background-color: rgb(215, 226, 216);
+            position: absolute;
+            left: 47%;
+            top: 39px;
+            display: none;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: rgb(215, 226, 216);
+        }
+        
+        audio::-webkit-media-controls-time-remaining-display {
+            background-color: rgb(215, 226, 216);
+            position: absolute;
+            right: 10%;
+        }
+        
+        audio::-webkit-media-controls-mute-button {
+            background-color: rgb(247, 115, 103);
+            display: none;
+        }
+    </style>
+    <style>
+        /*主体CSS*/
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main {
+            width: 355px;
+            height: 262px;
+            margin: 100px auto;
+            position: relative;
+            /* border: 2px solid skyblue;
+            background-color: rgb(95, 181, 181); */
+            display: block;
+        }
+        
+        .rotate {
+            -webkit-animation: rot 5s linear infinite;
+            animation: rot 15s linear infinite;
+            animation-play-state: paused;
+            -webkit-animation-play-state: paused;
+        }
+        
+        @keyframes rot {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .play {
+            cursor: pointer;
+            width: 420px;
+            height: 420px;
+            position: absolute;
+            z-index: 10;
+            bottom: -107px;
+            left: -31px;
+            transform: rotate(0);
+        }
+        
+        .play-b {
+            position: absolute;
+            z-index: 12;
+            width: 100px;
+            height: 300px;
+            right: 68px;
+            top: -66px;
+            transform: rotate(-17deg);
+            transform-origin: 75% 22%;
+            -webkit-transform-origin: 75% 22%;
+            cursor: pointer;
+        }
+        
+        .buttonRot {
+            -webkit-animation: brot 0.5s ease-in-out forwards;
+            animation: brot 0.5s ease-in-out forwards;
+        }
+        
+        .buttonRot_back {
+            -webkit-animation: brot_back 0.5s ease-in-out forwards;
+            animation: brot_back 0.5s ease-in-out forwards;
+        }
+        
+        @keyframes brot {
+            0% {
+                transform: rotate(-17deg);
+            }
+            100% {
+                transform: rotate(-4deg);
+            }
+        }
+        
+        @keyframes brot_back {
+            0% {
+                transform: rotate(-4deg);
+            }
+            100% {
+                transform: rotate(-17deg);
+            }
+        }
+        
+        .play-pic {
+            position: absolute;
+            top: 103px;
+            left: 97px;
+            border-radius: 50%;
+            width: 221px;
+        }
+        
+        .lyric_area {
+            /*歌词显示区域*/
+            height: 368px;
+            /*歌词区域高度*/
+            overflow: hidden;
+            /*隐藏超出部分*/
+            margin-top: 45px;
+            text-align: center;
+            /* margin-right: 30px; */
+        }
+        
+        #lyric {
+            /*歌词列表*/
+            line-height: 20px;
+            /*行高，这个值要用在歌词滚动距离上*/
+            transition-duration: 600ms;
+            /*滚动速度*/
+        }
+        
+        #lyric .lineHigh {
+            /*高亮行*/
+            color: rgb(255, 255, 255);
+            font-size: 17px;
+        }
+        
+        .ii {
+            display: none;
+        }
+        
+        .uu {
+            /* background-color: aquamarine; */
+            display: none;
+        }
+        
+        ul {
+            list-style: none;
+            color: rgb(8, 8, 8);
+        }
+    </style>
+    <style>
+        /*文字特效css*/
+        
+        .yy {
+            /* text-align: center; */
+            margin-top: 49px;
+        }
+        
+        #ab {
+            margin-left: 7%;
+            display: inline-block;
+        }
+        
+        #af {
+            display: none;
+            margin-left: 7%;
+        }
+        
+        #zb {
+            margin-left: 28%;
+            display: inline-block;
+        }
+        
+        #yb {
+            display: inline-block;
+            margin-left: 6%;
+        }
+        
+        .main h1 {
+            color: #9d9d9d;
+            font-family: Helvetica;
+            margin: 0;
+            padding: 0;
+            font-size: 17px;
+            position: relative;
+        }
+        
+        .main h1::after {
+            content: attr(data-spotlight);
+            color: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-clip-path: ellipse(16px 16px at 0% 50%);
+            clip-path: ellipse(16px 16px at 0% 50%);
+            animation: spotlight 7s infinite;
+            background-image: url(http://m801.music.126.net/20230108174453/4d9a08fafc17a5fd14ea531794b3d094/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/23616175077/c4c5/2c48/5be1/73fe0e712855cc06f337699bef078a69.mp3);
+            background-size: 50%;
+            background-position: center center;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        @keyframes spotlight {
+            0% {
+                -webkit-clip-path: ellipse(16px 16px at 0% 50%);
+                clip-path: ellipse(16px 16px at 0% 50%);
+            }
+            50% {
+                -webkit-clip-path: ellipse(16px 16px at 100% 50%);
+                clip-path: ellipse(16px 16px at 100% 50%);
+            }
+            100% {
+                -webkit-clip-path: ellipse(16px 16px at 0% 50%);
+                clip-path: ellipse(16px 16px at 0% 50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="da">
+        <!-- 头部 -->
+        <!-- <div id="web_bg"></div> -->
+        <div class="top-nav">
+
+            <a href="cs.html"><i class="layui-icon layui-icon-down" style="font-size: 22px;"></i></a>
+            <div style="height: 90px; text-align: center;">
+                <p class="misuse"></p>
+                <!-- <p style="height:20px;">j</p> -->
+            </div>
+            <div class="left"><i class="layui-icon layui-icon-share" style="font-size: 22px;"></i> </div>
+        </div>
+
+
+        <div class="main">
+            <!-- <h1 data-spotlight="DIY黑胶MP3">DIY黑胶MP3</h1> -->
+
+            <div id="y" class="play rotate" style="animation-play-state: running;">
+                <img src="../img/index2.png" width="420px" height="420px" alt="">
+                <img src="http://p1.music.126.net/I8h4er77FZLgfAeHUUF5sA==/109951168213844530.jpg" class="play-pic" alt="">
+            </div>
+            <div class="play-b buttonRot">
+                <img src="../img/button.png" width="100%" alt="">
+            </div>
+
+        </div>
+
+        <div class="ii">
+            <div class="lyric_area">
+                <ul id="lyric"></ul>
+            </div>
+            <div class="uu">
+                <div class="lyric_area">
+                    <ul id="lyric"></ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="yy">
+            <audio controls id="Music" preload="none" autoplay="autoplay" src="" loop></audio>
+            <svg id="zb" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-start" viewBox="0 0 16 16">
+                <path d="M4 4a.5.5 0 0 1 1 0v3.248l6.267-3.636c.52-.302 1.233.043 1.233.696v7.384c0 .653-.713.998-1.233.696L5 8.752V12a.5.5 0 0 1-1 0V4zm7.5.633L5.696 8l5.804 3.367V4.633z"/>
+              </svg>
+            <svg id='ab' xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-play-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M6.271 5.055a.5.5 0 0 1 .52.038l3.5 2.5a.5.5 0 0 1 0 .814l-3.5 2.5A.5.5 0 0 1 6 10.5v-5a.5.5 0 0 1 .271-.445z"/>
+              </svg>
+            <svg id='af' xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-pause-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M5 6.25a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5zm3.5 0a1.25 1.25 0 1 1 2.5 0v3.5a1.25 1.25 0 1 1-2.5 0v-3.5z"/>
+              </svg>
+            <svg id='yb' xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-skip-end" viewBox="0 0 16 16">
+                <path d="M12.5 4a.5.5 0 0 0-1 0v3.248L5.233 3.612C4.713 3.31 4 3.655 4 4.308v7.384c0 .653.713.998 1.233.696L11.5 8.752V12a.5.5 0 0 0 1 0V4zM5 4.633 10.804 8 5 11.367V4.633z"/>
+              </svg>
+        </div>
+        <!-- 27591236 -->
+        <!-- <audio controls autoplay="autoplay" src="http://m801.music.126.net/20230108174453/4d9a08fafc17a5fd14ea531794b3d094/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/23616175077/c4c5/2c48/5be1/73fe0e712855cc06f337699bef078a69.mp3" loop></audio>
+    </div> -->
+
+
+
+
+
+        <!-- <ul class="u"> -->
+
+
+        <!-- </ul> -->
+
+
+        <script>
+            var main = document.querySelector('.main');
+            var lyric = document.querySelector('.ii');
+            var uu = document.querySelector('.uu')
+            main.addEventListener('click', function() {
+                this.style.display = 'none';
+                uu.style.display = 'none'
+                lyric.style.display = 'block'
+            });
+            lyric.addEventListener('click', function() {
+                this.style.display = 'none';
+                uu.style.display = 'none'
+                main.style.display = 'block'
+            })
+            window.onload = function() {
+                console.log(0);
+                setInterval("to()", 100);
+            }
+            var yy = document.querySelector('.yy')
+            var music = document.getElementById('Music');
+            var ab = document.getElementById('ab')
+            var af = document.getElementById('af')
+            yy.addEventListener('click', function() {
+                console.log('ii');
+                // music.play();
+            });
+            ab.addEventListener('click', function() {
+                this.style.display = 'none';
+                af.style.display = 'block';
+                af.style.display = 'inline-block'
+
+                music.play();
+            })
+            af.addEventListener('click', function() {
+                this.style.display = 'none';
+                ab.style.display = 'inline-block'
+                music.pause()
+            })
+
+            function
+            to() {
+                var music = document.getElementById('Music');
+
+                if (music.paused) {
+                    // music.paused = false;
+                    // music.play();
+                    console.log('没有播放');
+                    $(y).removeClass('rotate')
+                } else {
+                    console.log('在播放');
+                    $(y).addClass('rotate')
+                }
+            }
+            // function to() {
+            //     var music = document.getElementById('Music');
+            //     if (music.paused) {
+            //         music.paused = false;
+            //         music.play();
+
+            //     }
+            // }
+            // setInterval('to()', 100);
+            // var audio = document.getElementById('Music');
+            // audio.load();
+            // let playPromise = audio.play();
+            // if (playPromise !== undefined) {
+            //     playPromise.then(() => {
+            //         audio.play()
+            //     }).catch(() => {})
+            // }
+
+            var p = document.querySelector('.misuse');
+            var path = UrlParm.parm('name');
+            var msid = UrlParm.parm('msid');
+            var name = UrlParm.parm('misuse');
+            var tp = UrlParm.parm('jpg');
+            console.log(tp);
+            var j = UrlParm.parm('jp');
+            console.log(p);
+            p.innerHTML = name;
+            // for (var i = 0; i < 29; i++) {
+            //     if (j == i) {
+            //         var st = window.sessionStorage;
+            //         var cur = st.demo;
+            //         console.log(cur);
+            //     }
+            // }
+            if (j == 0) {
+                var st = window.sessionStorage;
+                var cur = st.demo0;
+                console.log(cur);
+            }
+            // console.log(tp)
+            var st = window.sessionStorage;
+            for (var i = 0; i < st.length; i++) {
+                if (tp == 0) {
+                    var cur = st.demo0;
+                } else if (tp == 1) {
+                    var cur = st.demo1;
+                } else if (tp == 2) {
+                    var cur = st.demo2;
+                } else if (tp == 3) {
+                    var cur = st.demo3;
+                } else if (tp == 4) {
+                    var cur = st.demo4;
+                } else if (tp == 5) {
+                    var cur = st.demo5;
+                } else if (tp == 6) {
+                    var cur = st.demo6;
+                } else if (tp == 7) {
+                    var cur = st.demo7;
+                } else if (tp == 8) {
+                    var cur = st.demo8;
+                } else if (tp == 9) {
+                    var cur = st.demo9;
+                }
+            }
+            // if (tp == 0) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo0;
+            //     console.log(cur);
+            // } else if (tp == 1) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo1;
+            //     console.log(cur);
+            // } else if (tp == 5) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo5;
+            //     console.log(cur);
+            // } else if (tp == 6) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo5;
+            //     console.log(cur);
+            // } else if (tp == 7) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo7;
+            //     console.log(cur);
+            // } else if (tp == 8) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo8;
+            //     console.log(cur);
+            // } else if (tp == 9) {
+            //     var st = window.sessionStorage;
+            //     var cur = st.demo9;
+            //     console.log(cur);
+            // }
+            $(function() {
+                a = 33894312;
+                console.log(a);
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:3000/song/url?id=' + path,
+                    success: function(datas) {
+                        console.log(datas.data[0].url);
+                        // data 对象数组
+                        var h = '';
+                        var m = '';
+                        // h += "<table border='1'>";
+                        // h += "<ul>";
+                        // h += "<li>name</li>"
+                        // h += '<thead><th>ID</th><th>name</th><th>price</th></thead>';
+                        // h += '<tbody>';
+                        var u = datas.data[0].url
+                            // console.log(u);
+                            // var s = u[0].id;
+                            // console.log(s);
+                            // $.each(u, function(x, y) {
+                            //     // console.log(y);
+
+                        //     console.log(y.name);
+                        //     h += '<a href="#" class="au">' + '<li>' + y.name + '</li >' + '</a>'
+                        //     $('.au').attr('href', u[0].id)
+                        // })
+                        console.log(cur);
+                        // for (var i = 0; i < u.length; i++) {
+                        //     console.log(u[i].id);
+                        //     $('.au').attr('href', u[0].id)
+                        // }
+                        // for (var i = 0; i < u.length; i++) {
+                        //     var o = u[i];
+                        //     // var t = o.id
+
+                        //     // console.log(t);
+                        //     h += '<a href="#" class="au">' + '<li>' + o.url + '</li >' + '</a>'
+
+                        // }
+                        // h += '<video controls="" autoplay="autoplay" muted="muted" name="media"><source autoplay="autoplay" src="" type="audio/mpeg"></video>'
+                        //     // h += '<tbody>';
+                        //     // h += '</table>';
+                        //     // h += "</ul>"
+                        // $('.u').empty().append(h);
+                        // $('.au').attr('href', 'http://localhost:3000/song/url?id=' + u[0].id)
+                        $('source').attr('src', u);
+                        $('#Music').attr('src', u);
+                        $('#myMusic').attr('autoplay', 'autoplay');
+                        $('.play-pic').attr('src', cur);
+                        $('misuse').attr(name);
+                        $('#web_bg').attr('background', `url(${cur})no-repeat center top`);
+
+
+                    },
+                    error: function() {
+                        alert('get : error');
+                    },
+                });
+
+
+                // setTimeout(function() {
+                //     document.querySelector('.u li').click()
+                //     autoplay = "autoplay"
+                // }, 1);
+
+
+            });
+            // var play = document.querySelector('.play');
+            // play.addEventListener('click', function() {
+
+            // })
+            $('.play').click(function() {
+                $('.play').hide();
+                $('.play-b').hide();
+
+            });
+
+
+
+            var ii = document.querySelector('.ii');
+            var uu = document.querySelector('.uu');
+            ii.addEventListener('click', function() {
+
+                this.style.display = 'none'
+                uu.style.display = 'block'
+
+            })
+            uu.addEventListener('click', function() {
+
+                this.style.display = 'none'
+                ii.style.display = 'block'
+
+            })
+            $.ajax({
+                type: "get",
+                url: "http://localhost:3000/lyric?id=" + path,
+                success: function(lrc) {
+                    //JSON格式的字符串，反序列化成一个JavaScript对象
+                    // lrc = JSON.parse(result);
+                    var lrc = lrc.lrc.lyric
+                    console.log(lrc);
+                    var oLRC = {
+                        ti: "", //歌曲名
+                        ar: "", //演唱者
+                        al: "", //专辑名
+                        by: "", //歌词制作人
+                        offset: 0, //时间补偿值，单位毫秒，用于调整歌词整体位置
+                        ms: [] //歌词数组{t:时间,c:歌词}
+                    };
+
+                    function createLrcObj(lrc) {
+                        if (lrc.length == 0) return;
+                        var lrcs = lrc.split('\n'); //用回车拆分成数组
+                        for (var i in lrcs) { //遍历歌词数组
+                            lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, ""); //去除前后空格
+                            var t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]")); //取[]间的内容
+                            var s = t.split(":"); //分离:前后文字
+                            if (isNaN(parseInt(s[0]))) { //不是数值
+                                for (var i in oLRC) {
+                                    if (i != "ms" && i == s[0].toLowerCase()) {
+                                        oLRC[i] = s[1];
+                                    }
+                                }
+                            } else { //是数值
+                                var arr = lrcs[i].match(/\[(\d+:.+?)\]/g); //提取时间字段，可能有多个
+                                var start = 0;
+                                for (var k in arr) {
+                                    start += arr[k].length; //计算歌词位置
+                                }
+                                var content = lrcs[i].substring(start); //获取歌词内容
+                                if (content.length > 0) {
+                                    for (var k in arr) {
+                                        var t = arr[k].substring(1, arr[k].length - 1); //取[]间的内容
+                                        var s = t.split(":"); //分离:前后文字
+                                        oLRC.ms.push({ //对象{t:时间,c:歌词}加入ms数组
+                                            t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
+                                            c: content
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                        oLRC.ms.sort(function(a, b) { //按时间顺序排序
+                            return a.t - b.t;
+                        });
+                        /*
+                        for(var i in oLRC){ //查看解析结果
+                            console.log(i,":",oLRC[i]);
+                        }*/
+                    }
+
+                    createLrcObj(lrc);
+
+                    function showLRC() {
+                        var s = "";
+                        for (var i in oLRC.ms) { //遍历ms数组，把歌词加入列表
+                            s += '<li>' + oLRC.ms[i].c + '</li>';
+                        }
+                        document.getElementById("lyric").innerHTML = s;
+                    }
+                    showLRC();
+                    console.log(oLRC.ms[7]);
+
+                    var lineNo = 0 //当前行
+                    var C_pos = 6 //C位
+                    var offset = -20 //滚动距离（应等于行高）
+                    var audio = document.getElementById("Music"); //播放器
+                    var ul = document.getElementById("lyric"); //歌词容器列表
+
+                    //高亮显示歌词当前行及文字滚动控制，行号为lineNo
+                    function lineHigh() {
+                        var lis = ul.getElementsByTagName("li"); //歌词数组
+
+                        if (lineNo > 0) {
+                            lis[lineNo - 1].removeAttribute("class"); //去掉上一行的高亮样式
+                        }
+                        lis[lineNo].className = "lineHigh"; //高亮显示当前行
+
+                        //文字滚动
+                        if (lineNo > C_pos) {
+                            ul.style.transform = "translateY(" + (lineNo - C_pos) * offset + "px)"; //整体向上滚动一行高度
+                        }
+                    }
+
+                    //滚回到开头，用于播放结束时
+                    function goback() {
+                        document.querySelector("#lyric .lineHigh").removeAttribute("class");
+                        ul.style.transform = "translateY(0)";
+                        lineNo = 0;
+                    }
+
+                    //监听播放器的timeupdate事件，实现文字与音频播放同步
+                    audio.ontimeupdate = function() {
+                        if (lineNo == oLRC.ms.length)
+                            return;
+                        var curTime = audio.currentTime; //播放器时间
+                        if (parseFloat(oLRC.ms[lineNo].t) <= curTime) {
+                            lineHigh(); //高亮当前行
+                            lineNo++;
+                        }
+                    };
+
+                    //监听播放器的ended事件，播放结束时回滚歌词
+                    audio.onended = function() {
+                        goback(); //回滚歌词
+                    };
+
+                    function lineHigh2() {
+                        var lis = ul.getElementsByTagName("li"); //歌词数组
+                        for (var i = 0; i < lis.length; i++) {
+                            var name = lis[i].className;
+                            if (name != null)
+                                lis[i].removeAttribute("class"); //去掉高亮样式
+                        }
+                    }
+
+                    //跳跃播放时，歌词回滚到对应位置
+                    audio.onseeked = function() {
+                        var curTime = audio.currentTime; //播放器时间
+                        for (i = 0; i < oLRC.ms.length; i++) {
+                            if (oLRC.ms[i].t <= curTime) {} else {
+                                lineHigh2(); //取消之前所有高亮
+                                lineNo = i;
+                                lineHigh(); //高亮当前行
+                                break;
+                            }
+                        }
+                    };
+
+                }
+
+            });
+        </script>
+
+</body>
+
+</html>

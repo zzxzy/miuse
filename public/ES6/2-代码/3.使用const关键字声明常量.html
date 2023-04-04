@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // const声明的常量具有块级作用域
+        // const必须声明时就赋值
+        // const常量赋值后，值就不能修改了(栈不能改值，堆的话可以改值，但是不能改引用地址)
+
+        // const num
+        // console.log(num);
+
+        // const num = 10;
+        // num = 20;
+        // console.log(num); // 报错 ，原因，常量生命的变量不能修改值
+
+        // const arr = [100, 200];
+        // // arr[0] = 123;
+
+        // // console.log(arr);
+        // arr = [123, 200];
+        // console.log(arr);
+
+        function getUserDescribe(name) {
+            const describeForNameMap = {
+                小刘: () => console.log("刘哥哥"),
+                小红: () => console.log("小红妹妹"),
+                陈龙: () => console.log("大师"),
+                李龙: () => console.log("师傅"),
+                大鹏: () => console.log("恶人"),
+            };
+            describeForNameMap[name] ? describeForNameMap[name]() : console.log("此人比较神秘！");
+        }
+        getUserDescribe('小红')
+    </script>
+</body>
+
+</html>

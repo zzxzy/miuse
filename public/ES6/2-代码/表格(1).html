@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        border: 1px solid #201c1c;
+        width: 900px;
+        text-align: center;
+      }
+      td,
+      th {
+        border: 1px solid #201c1c;
+      }
+    </style>
+  </head>
+  <body>
+    商品名称：<input type="text" class="spmc" /> 商品数量：<input
+      type="text"
+      class="spsl"
+    />
+    商品单价：<input type="text" class="spdj" />
+    <button id="qrtj">确认添加</button>
+    <table>
+      <thead>
+        <tr>
+          <th><input type="checkbox" id="quanxuan" /></th>
+          <th>商品名称</th>
+          <th>数量</th>
+          <th>单价</th>
+          <th>删除</th>
+        </tr>
+      </thead>
+      <tbody id="tby">
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>可乐</td>
+          <td>
+            <button class="jian">-</button><span class="spas">1</span
+            ><button class="jia">+</button>
+          </td>
+          <td class="danj">2.5</td>
+          <td><button id="sc">删除</button></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td>红牛</td>
+          <td>
+            <button class="jian">-</button><span class="spas">2</span
+            ><button class="jia">+</button>
+          </td>
+          <td class="danj">5</td>
+          <td><button id="sc">删除</button></td>
+        </tr>
+        <tr>
+          <td colspan="2">总价</td>
+          <td colspan="3" class="zj"></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      let tby = document.querySelector("#tby");
+      let qx = document.querySelector("#quanxuan");
+      let fx = document.querySelectorAll("#tby input");
+      let zj = document.querySelector(".zj");
+
+      let sc = document.querySelectorAll("#sc");
+      let spmc = document.querySelector(".spmc");
+      let spsl = document.querySelector(".spsl");
+      let spdj = document.querySelector(".spdj");
+      let qrtj = document.querySelector("#qrtj");
+
+      let spas = document.querySelector(".spas");
+      console.log(spas.innerHTML);
+
+      console.log(tby.children[0].children[2].children[1].innerText);
+      //添加
+      qrtj.addEventListener("click", function () {
+        //行
+        let tr = document.createElement("tr");
+        tby.insertBefore(tr, tby.children[tby.children.length - 1]);
+        //复选框
+        // let ll=tby.children[0].children[0].cloneNode(true);
+        let tdd = document.createElement("td");
+        tr.insertBefore(tdd, tr.children[0]);
+        let inp = document.createElement("input");
+        inp.type = "checkbox";
+        tdd.insertBefore(inp, tdd.children[0]);
+        //商品名称
+        let td = document.createElement("td");
+        tr.insertBefore(td, tr.children[1]);
+        td.innerHTML = spmc.value;
+        //商品数量
+        let td1 = document.createElement("td");
+        tr.insertBefore(td1, tr.children[2]);
+        let btn = document.createElement("button");
+        btn.className = "jian";
+        btn.innerHTML = "-";
+        td1.insertBefore(btn, td1.children[0]);
+
+        let spas = document.createElement("span");
+        spas.className = "spas";
+        spas.innerHTML = spsl.value;
+        td1.insertBefore(spas, td1.children[1]);
+
+        let btn1 = document.createElement("button");
+        btn1.className = "jia";
+        btn1.innerHTML = "+";
+        td1.insertBefore(btn1, td1.children[2]);
+        //商品单价
+        let td2 = document.createElement("td");
+        td2.className = "danj";
+        tr.insertBefore(td2, tr.children[3]);
+        td2.innerHTML = spdj.value;
+        //删除
+        // let scc=tby.children[0].children[4].cloneNode(true);
+        let tds = document.createElement("td");
+        tr.insertBefore(tds, tr.children[4]);
+        let but = document.createElement("button");
+        but.id = "sc";
+        but.innerHTML = "删除";
+        tds.insertBefore(but, tds.children[0]);
+        quanx();
+        fux();
+        Del();
+        Jian();
+        Jia();
+      });
+      //全选
+      function quanx() {
+        let qx = document.querySelector("#quanxuan");
+        let fx = document.querySelectorAll("#tby input");
+        let zj = document.querySelector(".zj");
+        qx.addEventListener("click", function () {
+          for (let i = 0; i < fx.length; i++) {
+            fx[i].checked = qx.checked;
+          }
+          let Sum = GetSum();
+          zj.innerHTML = Sum;
+        });
+      }
+      quanx();
+      //单选
+      function fux() {
+        let qx = document.querySelector("#quanxuan");
+        let fx = document.querySelectorAll("#tby input");
+        let zj = document.querySelector(".zj");
+        for (i = 0; i < fx.length; i++) {
+          fx[i].onclick = function () {
+            let check = document.querySelectorAll("#tby input:checked");
+            if (check.length == fx.length) {
+              qx.checked = true;
+            } else {
+              qx.checked = false;
+            }
+            let Sum = GetSum();
+            zj.innerHTML = Sum;
+          };
+        }
+      }
+      fux();
+      //总价
+      function GetSum() {
+        let check = document.querySelectorAll("#tby  input:checked");
+        let sum = 0;
+        for (i = 0; i < check.length; i++) {
+          let tr = check[i].parentNode.parentNode;
+          sum +=
+            +tr.children[3].innerHTML * tr.children[2].children[1].innerHTML;
+        }
+        return sum;
+        Jian();
+        Jia();
+      }
+      //删除
+      function Del() {
+        let sc = document.querySelectorAll("#sc");
+        for (i = 0; i < sc.length; i++) {
+          sc[i].addEventListener("click", function () {
+            this.parentNode.parentNode.remove();
+          });
+        }
+      }
+      Del();
+      //单价减
+      function Jian() {
+        let zj = document.querySelector(".zj");
+        let jian = document.querySelectorAll(".jian");
+        for (let i = 0; i < jian.length; i++) {
+          jian[i].addEventListener("click", () => {
+            if (jian[i].parentNode.children[1].innerHTML > 0) {
+              jian[i].parentNode.children[1].innerHTML--;
+              let sum = GetSum();
+              zj.innerHTML = sum;
+            } else {
+              jian[i].parentNode.children[1].innerHTML = 0;
+            }
+          });
+        }
+      }
+      Jian();
+      //单价加
+      function Jia() {
+        let zj = document.querySelector(".zj");
+        let jia = document.querySelectorAll(".jia");
+        for (let i = 0; i < jia.length; i++) {
+          jia[i].addEventListener("click", () => {
+            console.log(typeof jia[i].parentNode.children[1].innerHTML);
+            jia[i].parentNode.children[1].innerHTML++;
+            let sum = GetSum();
+            zj.innerHTML = sum;
+          });
+        }
+      }
+      Jia();
+      //获取
+      function fou() {
+        let danj = document.querySelectorAll(".danj");
+        for (let i = 0; i < danj.length; i++) {
+          danj[i].addEventListener("click", () => {
+            danj[i].innerHTML = "";
+            // console.log(2);
+            let inp = document.createElement("input");
+            danj[i].appendChild(inp);
+            inp.focus();
+            inp.addEventListener("blur", () => {
+              inp.display = "block";
+              if (inp.value == "") {
+                danj[i].innerHTML;
+              } else {
+                inp.parentNode.innerHTML = inp.value;
+                let zj = document.querySelector(".zj");
+                let sum = GetSum();
+                zj.innerHTML = sum;
+              }
+            });
+          });
+        }
+      }
+      fou();
+    </script>
+  </body>
+</html>

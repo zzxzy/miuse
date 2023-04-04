@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let obj = {
+        //     name: '李白',
+        //     age: 20
+        // }
+        // let name = Symbol();
+        // obj[name] = 'hh'
+        // console.log(obj[name]);
+        // let s = Symbol();
+        // console.log(s.toString() + 'hhh');
+        // if (s) {
+        //     console.log('猜猜我是true还是false');
+        // }
+        // let keys = {
+        //     name: Symbol(),
+        //     age: Symbol(),
+        //     location: Symbol(),
+        //     test: Symbol(),
+        // }
+        // let obj = {
+        //         [keys.name]: 'hh',
+        //         [keys.age]: 11,
+        //         [keys.test]: 'vvvvv'
+        //     }
+        //     // console.log(obj);
+
+        // Reflect.ownKeys(obj).forEach(value => {
+        //     console.log(value, obj[value]);
+        // })
+        // const VIDEO = Symbol();
+        // const AUDIO = Symbol();
+        // const IMAGE = Symbol();
+        // const audio = Symbol();
+
+        // function play(type) {
+        //     switch (type) {
+        //         case VIDEO:
+        //             console.log('播放视频');
+        //             break;
+        //         case AUDIO:
+        //             console.log('播放音乐');
+        //             break;
+        //         case IMAGE:
+        //             console.log('图片');
+        //             break;
+        //     }
+        // }
+        // play(VIDEO)
+        // let arr = [1, 2, 3, 4, 5, 6, 7]
+        // for (const i of arr) {
+        //     console.log(i);
+        // }
+        // let iter = arr[Symbol.iterator]();
+        // console.log(iter);
+        // console.log(iter.next());
+        // console.log(iter.next());
+        // console.log(iter.next());
+
+        // function test() {
+        //     console.log(arguments);
+        //     for (const i of arguments) {
+        //         console.log(i);
+        //     }
+        // }
+        // test(1, 2, 3, 4, 5)
+        let o = [{
+            a: 0
+        }]
+        let map1 = new Map([
+            ['name', 'list'],
+            [o, 20]
+        ])
+        console.log(map1);
+        console.log(map1.get(o));
+        console.log(map1.has('name'));
+        console.log(map1.set('jk', 'girs'));
+        console.log(map1.delete(o));
+        console.log(map1);
+        map1.clear()
+        console.log(map1);
+    </script>
+</body>
+
+</html>
+
+</html>
